@@ -199,16 +199,7 @@ public class WebSocketController  {
             log.error("点对点发送异常:", e);
         }
     }
-
-    private synchronized void updateFriendStatus(String uid, int status) {
-        if (friendsListMap.containsKey(uid)) {
-            List<Friends> friendsList = friendsListMap.get(uid);
-            for (Friends friend : friendsList) {
-
-                friend.setStatus(status);
-            }
-        }
-    }
+    
 
     private void updateFriendsOnlineStatus(List<Friends> friends) {
         for (Friends friend : friends) {
