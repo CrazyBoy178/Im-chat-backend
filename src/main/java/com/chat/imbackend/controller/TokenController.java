@@ -16,8 +16,6 @@ public class TokenController {
     @Value("${jwt.secret}")
     private String secret; // 注入JWT密钥
 
-
-
     @PostMapping("/decodeToken")
     public ResponseEntity<?> decodeToken(@RequestBody String token) {
         try {
