@@ -18,5 +18,5 @@ public class Friends {
     private String avatar;
 
     private int status = 0;
-    
+
 }
