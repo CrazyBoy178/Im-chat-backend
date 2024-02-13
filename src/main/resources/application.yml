@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    name: mysql
+    url: jdbc:mysql://localhost:3306/im-chat?useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: Zxm123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host=192.168.18.140
+    port=6379
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+#logging:
+#  level:
+#    org.mybatis: DEBUG
+#    org.springframework.beans.factory.support.DefaultListableBeanFactory:DEBUG:
+
+
+jwt:
+  secret: 9bf18b6f32f9e29e4b3b442d8a41e376b216b1b0a6228625a2c1a1376a46b16a51012b4db13e0b2f48732f7df8dcba15c3b7d16759f4c10192e9f692a157e82f
+
+
