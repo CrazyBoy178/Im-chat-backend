@@ -18,4 +18,14 @@ public class Friends {
     private String avatar;
 
     private int status = 0;
+
+    private int messageCount = 0;
+
+    public void addMessageConut(){
+        messageCount++;
+    }
+
+    public void resetMessageCount(){
+        messageCount = 0;
+    }
 }

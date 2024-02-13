@@ -199,7 +199,7 @@ public class WebSocketController  {
             log.error("点对点发送异常:", e);
         }
     }
-    
+
 
     private void updateFriendsOnlineStatus(List<Friends> friends) {
         for (Friends friend : friends) {
