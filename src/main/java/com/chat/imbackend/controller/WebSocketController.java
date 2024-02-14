@@ -92,50 +92,10 @@ public class WebSocketController  {
             log.error("处理WebSocket消息时出错: {}", e.getMessage(), e);
         }
     }
-
-    /**
-     * 通知更新好友信息列表
-     */
-//    private synchronized void updateFriendInformationList() {
-//        webSocketSession.forEach((key, val) -> {
-//            // 初始化存储属于自己的好友列表 排除自己
-//            List<Friends> friends = new ArrayList<>();
-//            // 迭代所有好友列表
-//            friendsList.forEach((friend) -> {
-//                // 在 所有好友信息列表 中验证非自己
-//                if (!friend.getUid().equals(key)) {
-//                    // 追加非自己的好友信息
-//                    friends.add(friend);
-//                }
-//            });
-//
-//            // 发送消息
-//            sendP2PMessage(key, JSON.toJSONString(Messages.builder()
-//                    .type("updateFriendsList")
-//                    .receiveUid(key)
-//                    .messages(friends)
-//                    .build()));
-//        });
-//    }
+    
 
     private synchronized void updateFriendInformationList() {
         for (Map.Entry<String, WebSocketController> entry : webSocketSession.entrySet()) {
-//            String uid = entry.getKey();
-//            List<Friends> onlineFriends = new ArrayList<>();
-//
-//            // 获取在线好友列表
-//            for (Map.Entry<String, WebSocketController> sessionEntry : webSocketSession.entrySet()) {
-//                String friendUid = sessionEntry.getKey();
-//
-//                if (!friendUid.equals(uid)) {
-//                    // 根据您的好友对象构建在线好友列表，直接使用好友对象中的字段
-//                    Friends friend = friendsList.stream().filter(f -> f.getUid().equals(friendUid)).findFirst().orElse(null);
-//                    if (friend != null) {
-//                        onlineFriends.add(friend);
-//                    }
-//                }
-//            }
-//            System.out.println(onlineFriends);
 
             // 发送消息
             String uid = entry.getKey();
@@ -149,12 +109,6 @@ public class WebSocketController  {
                     .receiveUid(uid)
                     .messages(friends)
                     .build()));
-
-//            sendP2PMessage(uid, JSON.toJSONString(Messages.builder()
-//                    .type("updateFriendsList")
-//                    .receiveUid(uid)
-//                    .messages(onlineFriends)
-//                    .build()));
         }
     }
 
