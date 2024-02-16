@@ -29,11 +29,14 @@ public class FriendShipController extends HttpController<FriendShipMapper,Friend
     public String addFriend(@RequestBody FriendShip friendship) {
         String userId = friendship.getUserid();
         String friendId = friendship.getFriendid();
+        System.out.println(userId+' '+friendId);
         User exuser = userMapper.getUserByUid(friendId);
-        if(exuser!=null&& !Objects.equals(userId, friendId)) {
+        System.out.println(exuser);
+
+        if(exuser !=null && !Objects.equals(userId, friendId)) {
             try {
                 // 确保 userId 和 friendId 不为空
-                if ( friendshipMapper.getFriendShip(userId,friendId) ==null) {
+                if ( friendshipMapper.getFriendShip(userId,friendId) == null) {
                     addSingleFriend(userId, friendId);
                     addSingleFriend(friendId, userId);
                     return "200";
