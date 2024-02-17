@@ -7,6 +7,7 @@ import com.chat.imbackend.entity.User;
 import com.chat.imbackend.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,6 +115,11 @@ public class UserController extends HttpController<UserMapper,User> {
         }
         return Users;
         // 处理从数据库中查询的朋友关系列表
+    }
+
+    @GetMapping("/getUsers")
+    private List<User> getUsers(@RequestParam("uid") String uid){
+        return userMapper.getAllUser(uid);
     }
 
 

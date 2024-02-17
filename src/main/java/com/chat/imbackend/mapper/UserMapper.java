@@ -24,6 +24,10 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT uid,nickname,avatar,jtime FROM tbl_users WHERE uid != #{userid} LIMIT 10 offset #{page}")
     List<User> getPage(@Param("userid") String userid ,@Param("page") int page);
 
+    @Select("SELECT uid FROM tbl_users where uid != #{uid}")
+    List<User> getAllUser(@Param("uid") String uid);
+
+
 
     @Select("select COUNT(*) from tbl_users")
     int getCount();
