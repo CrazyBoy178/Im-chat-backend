@@ -118,8 +118,13 @@ public class UserController extends HttpController<UserMapper,User> {
     }
 
     @GetMapping("/getUsers")
-    private List<User> getUsers(@RequestParam("uid") String uid){
-        return userMapper.getAllUser(uid);
+    private List<String> getUsers(@RequestParam("uid") String uid){
+        List<String> uidList = new ArrayList<>();
+        List<User> userList = userMapper.getAllUser(uid);
+        for (User user : userList) {
+            uidList.add(user.getUid());
+        }
+        return uidList;
     }
 
 
