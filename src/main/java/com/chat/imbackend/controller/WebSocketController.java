@@ -4,7 +4,9 @@ package com.chat.imbackend.controller;
 import com.alibaba.fastjson.JSON;
 import com.chat.imbackend.entity.Friends;
 import com.chat.imbackend.entity.Messages;
+import com.chat.imbackend.entity.MsgInfo;
 import com.chat.imbackend.entity.User;
+import com.chat.imbackend.mapper.MsgInfoMapper;
 import com.chat.imbackend.mapper.SocketMapper;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -20,6 +22,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +58,8 @@ public class WebSocketController  {
 
     private  SocketMapper socketMapper;
 
+    private MsgInfoMapper msgInfoMapper;
+
     public static void setApplicationContext(ApplicationContext applicationContext) {
         WebSocketController.applicationContext = applicationContext;
     }
@@ -78,11 +84,19 @@ public class WebSocketController  {
             friendsListMap.put(uid, friendsList); // 初始化好友列表
             System.out.println(friendsListMap);
 
-            // 更新好友在线状态
-
-
             // 通知更新好友信息列表
             updateFriendInformationList();
+
+//            msgInfoMapper = applicationContext.getBean(MsgInfoMapper.class);
+//            List<MsgInfo> historyMessages = msgInfoMapper.getHistoryMessages(uid); // 这里假设有一个方法用于获取历史消息
+//
+//            // 将历史消息发送给客户端
+//            for (MsgInfo msg : historyMessages) {
+//                sendP2PMessage(uid, msg.getContent());
+//            }
+
+
+
 
             log.info("【WebSocket消息】有新的连接[{}], 连接总数:{}", uid, webSocketSession.size());
 
@@ -120,10 +134,23 @@ public class WebSocketController  {
         // 验证消息内容
         if (StringUtils.hasLength(message)) {
             try {
+                msgInfoMapper = applicationContext.getBean(MsgInfoMapper.class);
                 // 消息内容转消息对象
                 Messages messages = JSON.parseObject(message, Messages.class);
                 // 发送消息
                 sendP2PMessage(messages.getReceiveUid(), message);
+                LocalDateTime currentTime = LocalDateTime.now();
+                long timestamp = currentTime.toEpochSecond(ZoneOffset.UTC);
+                MsgInfo msgInfo = MsgInfo.builder()
+                        .sendid(uid)
+                        .receiveid(messages.getReceiveUid())
+                        .content(messages.getMessages().toString())
+                        .timestamp(currentTime)
+                        .currenttimestamp(timestamp)
+                .build();
+                System.out.println(msgInfo);
+                msgInfoMapper.insert(msgInfo);
+
             } catch (Exception e) {
                 log.error("WebSocket消息异常:", e);
             }
