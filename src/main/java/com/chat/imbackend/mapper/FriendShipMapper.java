@@ -20,16 +20,12 @@ public interface FriendShipMapper extends BaseMapper<FriendShip> {
     @Select("SELECT friendid FROM v_friendship WHERE userid=#{userid} LIMIT 10 offset #{page}")
     List<FriendShip> getFriendShipsPage(@Param("userid") String userId, @Param("page") int page);
 
-
-
-
     @Select("select COUNT(*) from v_friendship where userid=#{userid}")
     int getFriendShipCount(@Param("userid") String user);
 
     @Select("select * from tbl_friendship where userid=#{userId} and friendid=#{friendid}")
     FriendShip getFriendShip(@Param("userId") String userId,@Param("friendid") String friendId);
 
-    Set<String> getFriendIds(String userId);
     @Delete("delete from tbl_friendship where userid=#{userid} and friendid=#{friendid}")
     void removeFriendShip(@Param("userid") String userid, @Param("friendid") String friendid);
 }
