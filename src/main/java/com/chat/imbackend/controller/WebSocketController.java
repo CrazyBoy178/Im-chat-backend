@@ -5,11 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.chat.imbackend.entity.Friends;
 import com.chat.imbackend.entity.Messages;
 import com.chat.imbackend.entity.MsgInfo;
-import com.chat.imbackend.entity.User;
 import com.chat.imbackend.mapper.MsgInfoMapper;
 import com.chat.imbackend.mapper.SocketMapper;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;

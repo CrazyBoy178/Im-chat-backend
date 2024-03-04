@@ -1,6 +1,7 @@
 package com.chat.imbackend;
 
 import com.chat.imbackend.controller.WebSocketController;
+import com.chat.imbackend.controller.WebsocketChatroomController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,6 +16,7 @@ public class ImBackendApplication {
         SpringApplication springApplication = new SpringApplication(ImBackendApplication.class);
         ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
         WebSocketController.setApplicationContext(configurableApplicationContext);
+
         System.out.println("Success");
     }
 

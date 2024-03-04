@@ -123,6 +123,25 @@ public class GroupController {
         return pageGroups;
     }
 
+    List<GroupInfo> getAllUserGroup(String user_id){
+        List<GroupInfo> user_owner_group = groupMapper.getGroupInfoByGroupOwner(user_id);
+        List<GroupInfo> user_in_group = groupMapper.getGroupInfoWithoutGroupOwner(user_id);
+
+        System.out.println(user_in_group);
+        List<GroupInfo> groups = new ArrayList<GroupInfo>(user_owner_group);
+        for (GroupInfo group :user_in_group){
+            String[] groupMembers = group.getGroupMember().split(",");
+            System.out.println(Arrays.toString(groupMembers));
+            for(String member:groupMembers){
+                if(member.equals(user_id)){
+                    groups.add(group);
+                    break;
+                }
+            }
+        }
+        return groups;
+    }
+
     @GetMapping("/delete/{user_id}/{group_id}")
     private String deleteGroup(@PathVariable("user_id") String user_id, @PathVariable("group_id") String group_id){
         groupMapper.removeGroup(user_id, group_id);
