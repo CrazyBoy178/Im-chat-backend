@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Messages {
+public class GroupMessages {
     /**
      * 消息类型
      */
@@ -22,7 +22,7 @@ public class Messages {
     /**
      * 接收好友昵称
      */
-    private String receiveUid;
+    private String receiveGroupId;
 
     /**
      * 消息内容

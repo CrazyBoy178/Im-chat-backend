@@ -15,4 +15,6 @@ public interface MsgInfoMapper  extends BaseMapper<MsgInfo> {
     @Select("select * from tbl_msg_info where sendid = #{sendid} and receiveid = #{receiveid}")
     List<MsgInfo> getHistoryMessages(@Param("sendid") String sendid,@Param("receiveid") String receiveid);
 
+    @Select("select * from tbl_msg_info where receiveid =#{receiveid}")
+    List<MsgInfo> getGroupHistoryMessages(@Param("receiveid") String receiveid);
 }

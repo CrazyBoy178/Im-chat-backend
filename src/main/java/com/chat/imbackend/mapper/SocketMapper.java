@@ -15,4 +15,6 @@ public interface SocketMapper {
 
     @Select("SELECT friendid as uid ,nickname ,avatar FROM v_friendship WHERE userid=#{userid}")
     List<Friends> getFriendsByUserId(@Param("userid") String user);
+
+
 }

@@ -5,6 +5,7 @@ import com.chat.imbackend.entity.GroupInfo;
 import com.chat.imbackend.entity.User;
 import com.chat.imbackend.mapper.GroupMapper;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.bouncycastle.cert.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -123,7 +124,8 @@ public class GroupController {
         return pageGroups;
     }
 
-    List<GroupInfo> getAllUserGroup(String user_id){
+    @GetMapping("/getUserGroups/{user_id}")
+    List<GroupInfo> getAllUserGroup(@PathVariable("user_id") String user_id){
         List<GroupInfo> user_owner_group = groupMapper.getGroupInfoByGroupOwner(user_id);
         List<GroupInfo> user_in_group = groupMapper.getGroupInfoWithoutGroupOwner(user_id);
 
@@ -173,6 +175,10 @@ public class GroupController {
     }
 
 
+    @GetMapping("/getGroupName/{groupId}")
+    public String getGroupName(@PathVariable("groupId") String groupId){
+        return groupMapper.getGroupName(groupId);
+    }
 
 
 

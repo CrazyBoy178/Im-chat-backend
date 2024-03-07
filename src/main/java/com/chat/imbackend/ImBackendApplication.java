@@ -16,6 +16,7 @@ public class ImBackendApplication {
         SpringApplication springApplication = new SpringApplication(ImBackendApplication.class);
         ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
         WebSocketController.setApplicationContext(configurableApplicationContext);
+        WebsocketChatroomController.setApplicationContext(configurableApplicationContext);
 
         System.out.println("Success");
     }

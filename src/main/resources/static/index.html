@@ -1,6 +1,61 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+</head>
 <body>
-<h1>hello word!!!</h1>
-<p>this is a html page</p>
+<input type="text" id="messageInput" placeholder="Type your message">
+<input type="text" id="groupIdInput" placeholder="Type your groupId">
+<input type="text" id="userIdInput" placeholder="Type your userId">
+<button onclick="sendMessage()">Send</button>
+<div id="output"></div>
+
+<script>
+    const messageInput = document.getElementById('messageInput');
+    const groupIdInput = document.getElementById('groupIdInput');
+    const userIdInput = document.getElementById('userIdInput');
+
+    const socketUrl = 'ws://localhost:8080/chatroom/';
+
+    let socket;
+
+    function connectWebSocket(groupId, userId) {
+        const url = socketUrl + groupId + '/' + userId;
+        socket = new WebSocket(url);
+
+        socket.onopen = function(event) {
+            console.log('WebSocket connected');
+        };
+
+        socket.onmessage = function(event) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML += `<p>${event.data}</p>`;
+        };
+
+        socket.onclose = function(event) {
+            console.log('WebSocket closed');
+        };
+    }
+
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        const groupId = groupIdInput.value.trim();
+        const userId = userIdInput.value.trim();
+
+        if (message !== '' && groupId !== '' && userId !== '') {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(message);
+            } else {
+                connectWebSocket(groupId, userId);
+            }
+
+            messageInput.value = '';
+        } else {
+            alert('Please enter message, groupId, and userId');
+        }
+    }
+</script>
 </body>
 </html>

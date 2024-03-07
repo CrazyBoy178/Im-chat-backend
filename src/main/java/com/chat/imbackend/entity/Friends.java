@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Friends {
-    /**
-     * 好友昵称
-     */
+
     private String nickname;
     private String uid;
     private String avatar;

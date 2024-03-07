@@ -25,6 +25,9 @@ public interface GroupMapper extends BaseMapper<GroupInfo> {
     @Delete("delete from tbl_group where group_owner = #{groupOwner} and group_id = #{groupId}")
     void removeGroup(@Param("groupOwner") String groupOwner,@Param("groupId") String groupId);
 
+    @Select("select group_name from tbl_group where group_id=#{groupId}")
+    String getGroupName(@Param("groupId") String groupId);
+
 
 
 
